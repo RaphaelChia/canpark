@@ -68,17 +68,34 @@
     position:fixed;
     bottom:30px;
     right:0px;
-    cursor:pointer;
-    
+    cursor:pointer; 
 }
 
-.btnsearchhere div{
+.searchThisAreaSpinner{
+  margin:0px 0px 0px 8px;
+  -webkit-animation: rotation 0.5s infinite linear;
+
+}
+
+.searchThisAreaText{
     background-color: #ffffff;
     padding:4px 15px;
     border-radius: 900px;
     box-shadow:2px 2px 2px #00000088;
     font-weight: bold;
     color:#234f81;
+    transition:width 0.5s ease-out;
+    width:160px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.searchThisAreaTextGrow{
+  width:180px;
 }
 
 .flexColCenter{
@@ -86,6 +103,13 @@
     flex-direction:column ;
     align-items: center;
     justify-content: center;
+}
+
+.flexRowCenter{
+  display: flex;
+  flex-direction:row ;
+  align-items: center;
+  justify-content: center;
 }
 
 

@@ -21,12 +21,15 @@ const Settings = ({
                 </label>
                 <label>
                     <div onClick = {(e)=>setShowFreeParking(!ShowFreeParking)} className ={`${styles.settingsItem} ${ShowFreeParking?styles.settingsItemSelected:''}`}>Show Free Parking</div>
+                    <span className = {styles.soon}>soon!</span>
                 </label>
                 <label>
                     <div onClick = {(e)=>setShowMultiStorey(!ShowMultiStorey)} className ={`${styles.settingsItem} ${ShowMultiStorey?styles.settingsItemSelected:''}`}>Show Multi-Storey</div>
+                    <span className = {styles.soon}>soon!</span>
                 </label>
                 <label>
                     <div onClick = {(e)=>setShowOpenSpaceParking(!ShowOpenSpaceParking)} className ={`${styles.settingsItem} ${ShowOpenSpaceParking?styles.settingsItemSelected:''}`}>Show Open Carpark</div>
+                    <span className = {styles.soon}>soon!</span>
                 </label>
             </form>
         </div>
