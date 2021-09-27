@@ -64,6 +64,7 @@ const Search = ({mapboxkey}) => {
         try {
             // Basically trying to merge 2 different API results into 1 object
             const data = await getCarParkDetails(KeywordSearch)
+            // console.log(data.result.records)
             const finalList = []
             for(var x in data.result.records){
                 const fil2 = searchResult.filter((item)=>(
@@ -143,7 +144,7 @@ const Search = ({mapboxkey}) => {
     }
 
     const setKeyword_debounce = debounce(
-        (e)=>setKeywordSearch(e.target.value.replace(/[^a-zA-Z\d]/ig, "")),
+        (e)=>setKeywordSearch(e.target.value.replace(/[^a-zA-Z\d ]/ig, "")),
         300)
 
 

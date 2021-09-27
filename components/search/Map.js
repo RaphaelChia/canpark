@@ -3,6 +3,7 @@ import {useRef, useEffect,useState } from "react"
 import { debounce, SVY21 } from "../../utils"
 
 import styles from '../../styles/Search.module.css'
+import { FaSpinner } from "react-icons/fa"
 
 const Map = ({showLL, getCarparks}) => {
     
@@ -17,6 +18,7 @@ const Map = ({showLL, getCarparks}) => {
      const [zoom, setZoom] = useState(13);
      const [markers,setMarkers] = useState([])
      const [mapMoving,setMapMoving] = useState(false)
+     const [retrievingMarkers,setRetrievingMarkers] = useState(false)
      const bound = [
          [103.6156,1.2198],
          [104.01420,1.4778]
@@ -56,6 +58,7 @@ const Map = ({showLL, getCarparks}) => {
  
  
     const populateMarkers = async() => {
+        setRetrievingMarkers(true)
         clearMarkers()
         const s = new SVY21()
         const cpItems = await getCarparks(map.current.getBounds())
@@ -72,10 +75,9 @@ const Map = ({showLL, getCarparks}) => {
                 lots_text += `<p>Lot Type: ${cpItems[x].carpark_info[i].lot_type}<br>`
                 lots_text += `Available: ${cpItems[x].carpark_info[i].lots_available}/${cpItems[x].carpark_info[i].total_lots} </p>`
             }
-            if(cpItems[x].carpark_info!=null && cpItems[x].carpark_info.length>1){
-                color = "#000000"
-            }else if (!("carpark_info" in cpItems[x])){
+            if (!("carpark_info" in cpItems[x])){
                 color = "#f5f5f5"
+                lots_text = "<p>No data available</p>"
             } else if (lots_avail/lots_total<0.2 && lots_avail/lots_total>0){
                 color="#ff9100"
             } else if(lots_avail==0){
@@ -91,6 +93,7 @@ const Map = ({showLL, getCarparks}) => {
             tempMarkers.push(marker)
         }
         setMarkers(tempMarkers)
+        setRetrievingMarkers(false)
     }
 
      const clearMarkers = () => {
@@ -126,8 +129,13 @@ const Map = ({showLL, getCarparks}) => {
                 {showLL && <div className={styles.mapLL}>
                     {lat} {lng}
                 </div>}
-                {!mapMoving && <div onClick={debounce(populateMarkers,300)} className = {styles.flexColCenter+' '+styles.btnsearchhere}>
-                    <div>Search This Area</div>
+                {!mapMoving && <div onClick={debounce(populateMarkers,300)} className = {styles.flexRowCenter+' '+styles.btnsearchhere}>
+                    <div className = {`${styles.searchThisAreaText} ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
+                        Search This Area
+                        {retrievingMarkers &&
+                            <FaSpinner className = {`${styles.searchThisAreaSpinner}`}/>
+                        }
+                    </div>
                 </div>}
             </div>
         </div>
