@@ -1,0 +1,50 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-a40ef1678bae11e696dba45124eadd70.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/oTZCPJ2_f5xXCcrnY4CEx/_buildManifest.js",
+    "static/oTZCPJ2_f5xXCcrnY4CEx/_ssgManifest.js"
+  ],
+  "pages": {
+    "/": [
+      "static/chunks/webpack-d0fa1404f4fe4b2f1979.js",
+      "static/chunks/framework-b97a0ed4f13ff8397343.js",
+      "static/chunks/main-c4f2541b93e4ae8b71f8.js",
+      "static/css/5dd3a863eec8dc33b66f.css",
+      "static/chunks/pages/index-695f1098cb38b4bc75bb.js"
+    ],
+    "/_app": [
+      "static/chunks/webpack-d0fa1404f4fe4b2f1979.js",
+      "static/chunks/framework-b97a0ed4f13ff8397343.js",
+      "static/chunks/main-c4f2541b93e4ae8b71f8.js",
+      "static/css/ebebf3c93d8f2c257ffa.css",
+      "static/chunks/pages/_app-7e305d366267aaf24491.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack-d0fa1404f4fe4b2f1979.js",
+      "static/chunks/framework-b97a0ed4f13ff8397343.js",
+      "static/chunks/main-c4f2541b93e4ae8b71f8.js",
+      "static/chunks/pages/_error-737a04e9a0da63c9d162.js"
+    ],
+    "/search": [
+      "static/chunks/webpack-d0fa1404f4fe4b2f1979.js",
+      "static/chunks/framework-b97a0ed4f13ff8397343.js",
+      "static/chunks/main-c4f2541b93e4ae8b71f8.js",
+      "static/css/4b2290856ae631bd3d08.css",
+      "static/chunks/1bfc9850-3b5f5010079a5ce5e05c.js",
+      "static/chunks/2c796e83-5cd6e9c6e7697e5d274c.js",
+      "static/css/2a121ff21b28fa7f340d.css",
+      "static/chunks/pages/search-3163b5d4bf4becdad7eb.js"
+    ],
+    "/search/[carparkId]": [
+      "static/chunks/webpack-d0fa1404f4fe4b2f1979.js",
+      "static/chunks/framework-b97a0ed4f13ff8397343.js",
+      "static/chunks/main-c4f2541b93e4ae8b71f8.js",
+      "static/chunks/pages/search/[carparkId]-49b0cd4703d34cf0a860.js"
+    ]
+  },
+  "ampFirstPages": []
+}

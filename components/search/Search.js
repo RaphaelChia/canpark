@@ -92,6 +92,8 @@ const Search = ({mapboxkey}) => {
         const data = await res.json()
         return data
     }    
+
+    
     // const getURAToken = async() =>{
     //     let headers = new Headers()
     
