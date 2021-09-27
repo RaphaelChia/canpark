@@ -17,7 +17,10 @@ const Search = ({mapboxkey}) => {
     const [KeywordSearch, setKeywordSearch] = useState("")
     const [ResultLoaded, setResultLoaded] = useState(true)
 
-
+    const NEXT_PUBLIC_CARPARK_INFO_URL="https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c"
+    const NEXT_PUBLIC_HDBCARPARK_AVAIL_URL="https://api.data.gov.sg/v1/transport/carpark-availability"
+    const NEXT_PUBLIC_URACARPARK_TOKEN_URL="https://www.ura.gov.sg/uraDataService/insertNewToken.action"
+    const NEXT_PUBLIC_URACARPARK_INFO_URL="https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability"
     
     // Settings 
     const tempRPP = 6
@@ -79,7 +82,7 @@ const Search = ({mapboxkey}) => {
     }
 
     const getCarParkDetails = async (kw) => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_CARPARK_INFO_URL}&limit=5000${kw?'&q='+kw:''}`)
+        const res = await fetch(`${NEXT_PUBLIC_CARPARK_INFO_URL}&limit=5000${kw?'&q='+kw:''}`)
         const data = await res.json()
         return data
         //Will only return 100 data, need to go next link to get next.
@@ -88,18 +91,18 @@ const Search = ({mapboxkey}) => {
     
     
     const getHDBCarParkAvailabilityInfo = async () =>{
-        const res = await fetch(process.env.NEXT_PUBLIC_HDBCARPARK_AVAIL_URL)
+        const res = await fetch(NEXT_PUBLIC_HDBCARPARK_AVAIL_URL)
         const data = await res.json()
         return data
     }    
 
-    
+
     // const getURAToken = async() =>{
     //     let headers = new Headers()
     
-    //     headers.append('AccessKey',process.env.NEXT_PUBLIC_URAACCESSKEY)
+    //     headers.append('AccessKey',NEXT_PUBLIC_URAACCESSKEY)
 
-    //     const res = await fetch(process.env.NEXT_PUBLIC_URACARPARK_TOKEN_URL,{
+    //     const res = await fetch(NEXT_PUBLIC_URACARPARK_TOKEN_URL,{
     //         method:'GET',
     //         headers:headers,
     //     })
@@ -108,7 +111,7 @@ const Search = ({mapboxkey}) => {
     //     return data.Result
     // }
     // const getURACarParksInfo = async () =>{
-    //     const res = await fetch(process.env.NEXT_PUBLIC_URACARPARK_INFO_URL)
+    //     const res = await fetch(NEXT_PUBLIC_URACARPARK_INFO_URL)
     //     const data = await res.json()
     //     return data
     // }
