@@ -91,8 +91,7 @@ const Search = ({mapboxkey}) => {
         const res = await fetch(process.env.NEXT_PUBLIC_HDBCARPARK_AVAIL_URL)
         const data = await res.json()
         return data
-    }
-    
+    }    
     // const getURAToken = async() =>{
     //     let headers = new Headers()
     
