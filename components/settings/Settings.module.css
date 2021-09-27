@@ -1,0 +1,45 @@
+.SettingsBox{
+    position: fixed;
+    right:6px;
+    border-radius:3px;
+    padding:5px;
+    /* margin:5px; */
+    top:73px;
+    background-color: rgb(60, 60, 83);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.431);
+    color:white;
+    z-index: 3;
+}
+
+.SettingsForm{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.SettingsBox input{
+    margin:5px;
+}
+
+.SettingsBox label{
+    margin: 5px 5px;
+}
+
+.SettingsBox span{
+    font-weight: bold;
+}
+
+.settingsItem{
+    border-radius: 60px;
+    padding:0px 8px;
+    cursor:Pointer;
+    font-weight: bold;
+    
+}
+
+.settingsItemSelected{
+    background-color: antiquewhite;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.431);
+    color: rgb(60, 60, 83);
+}
