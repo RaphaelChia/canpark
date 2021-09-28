@@ -32,7 +32,9 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
             center:[
                 newLatLon.lng,
                 newLatLon.lat
-            ]
+            ],
+            zoom:15,
+            essential: true 
         })
         const lotProcessed = processLots(moveToSingleMarker)
         setMarkers([
