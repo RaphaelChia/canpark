@@ -2,7 +2,7 @@ import styles from "../../styles/Search.module.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import {useEffect,useState} from 'react'
 
-const Search_item = ({item,setSingleSearchResult}) => {
+const Search_item = ({setHideFilteredResult,item,setSingleSearchResult}) => {
 
     let lots_avail = Number(0)
     let lots_total = Number(0)
@@ -13,6 +13,7 @@ const Search_item = ({item,setSingleSearchResult}) => {
 
     const callbackSingleSearchResult = (i) =>{
         const single = i
+        setHideFilteredResult(true)
         setSingleSearchResult(single)
     }
 

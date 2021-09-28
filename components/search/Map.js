@@ -32,7 +32,9 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
             center:[
                 newLatLon.lng,
                 newLatLon.lat
-            ]
+            ],
+            zoom:15,
+            essential: true 
         })
         const lotProcessed = processLots(moveToSingleMarker)
         setMarkers([
@@ -45,7 +47,6 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
     },[moveToSingleMarker])
 
      useEffect(() => {
-         console.log("init map")
         //  if (map.current) return; // initialize map only once
          map.current = new mapboxgl.Map({
            container: mapContainer.current,
@@ -106,8 +107,9 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
  
  
     const populateMarkers = async() => {
+        if(retrievingMarkers)return
         setRetrievingMarkers(true)
-        clearMarkers()
+        
         const s = new SVY21()
         const cpItems = await getCarparks(map.current.getBounds())
         let tempMarkers = []
@@ -120,6 +122,7 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
             .addTo(map.current);
             tempMarkers.push(marker)
         }
+        clearMarkers()
         setMarkers(tempMarkers)
         setRetrievingMarkers(false)
     }
@@ -157,7 +160,7 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
                     {lat} {lng}
                 </div>}
                 {!mapMoving && <div onClick={debounce(populateMarkers,300)} className = {styles.flexRowCenter+' '+styles.btnsearchhere}>
-                    <div className = {`${styles.searchThisAreaText} ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
+                    <div className = {`${styles.searchThisAreaText} noSelectClick ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
                         Search This Area
                         {retrievingMarkers &&
                             <FaSpinner className = {`${styles.searchThisAreaSpinner}`}/>
