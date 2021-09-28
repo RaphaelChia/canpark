@@ -17,6 +17,7 @@ const Search = ({mapboxkey}) => {
     const [SearchResultLoaded, setSearchResultLoaded] = useState(true)
     const [SingleSearchResult, setSingleSearchResult] = useState(null) // For when search is clicked
     const [mapMoving,setMapMoving] = useState(false)
+    const [hideFilteredResult,setHideFilteredResult] = useState(false)
 
     const NEXT_PUBLIC_CARPARK_INFO_URL="https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c"
     const NEXT_PUBLIC_HDBCARPARK_AVAIL_URL="https://api.data.gov.sg/v1/transport/carpark-availability"
@@ -159,7 +160,7 @@ const Search = ({mapboxkey}) => {
         <div className={styles.container}>
             <Map mapMoving = {mapMoving} setMapMoving = {setMapMoving} resetSingleSearch = {resetSingleSearch} moveToSingleMarker={SingleSearchResult} getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
             <form className={styles.searchbar} onSubmit = {(e)=>{e.preventDefault()}}>
-                <input autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
+                <input onFocus={()=>setHideFilteredResult(false)} onBlur={()=>setHideFilteredResult(true)} autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
                 {!SearchResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
                 <div className={styles.settings_btn} onClick={toggleShowSettings}>
                     <FaCog/>
@@ -167,7 +168,7 @@ const Search = ({mapboxkey}) => {
             </form>
             
             <div className={`${styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
-                {FilteredResult.map((sr,index)=>(
+                {!hideFilteredResult && FilteredResult.map((sr,index)=>(
                     KeywordSearch.length>0 && index>=startend.start && index<startend.end && <Search_item setSingleSearchResult={setSingleSearchResult} item={sr} key={index}/>
                 ))}
             </div>
