@@ -13,7 +13,7 @@ const Settings = ({
                 ShowOpenSpaceParking,
 }) => {
     return (
-        <div className={styles.SettingsBox} onBlur={() =>props.setShowSettings(false)}>
+        <div className={styles.SettingsBox + ' noSelectClick'} onBlur={() =>props.setShowSettings(false)}>
             <form className={styles.SettingsForm}>
                 <label>
                     <div onClick = {(e) =>setShowLL(!showLL)} className = {`${styles.settingsItem} ${showLL?styles.settingsItemSelected:''}`}>Show LatLng</div>

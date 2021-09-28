@@ -159,7 +159,7 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
                     {lat} {lng}
                 </div>}
                 {!mapMoving && <div onClick={debounce(populateMarkers,300)} className = {styles.flexRowCenter+' '+styles.btnsearchhere}>
-                    <div className = {`${styles.searchThisAreaText} ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
+                    <div className = {`${styles.searchThisAreaText} noSelectClick ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
                         Search This Area
                         {retrievingMarkers &&
                             <FaSpinner className = {`${styles.searchThisAreaSpinner}`}/>

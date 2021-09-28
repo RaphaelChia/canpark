@@ -160,16 +160,16 @@ const Search = ({mapboxkey}) => {
         <div className={styles.container}>
             <Map mapMoving = {mapMoving} setMapMoving = {setMapMoving} resetSingleSearch = {resetSingleSearch} moveToSingleMarker={SingleSearchResult} getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
             <form className={styles.searchbar} onSubmit = {(e)=>{e.preventDefault()}}>
-                <input onFocus={()=>setHideFilteredResult(false)} onBlur={()=>setHideFilteredResult(true)} autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
+                <input onFocus={()=>setHideFilteredResult(false)}  autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
                 {!SearchResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
                 <div className={styles.settings_btn} onClick={toggleShowSettings}>
                     <FaCog/>
                 </div>
             </form>
             
-            <div className={`${styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
+            <div className={`${'noSelectClick '+styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
                 {!hideFilteredResult && FilteredResult.map((sr,index)=>(
-                    KeywordSearch.length>0 && index>=startend.start && index<startend.end && <Search_item setSingleSearchResult={setSingleSearchResult} item={sr} key={index}/>
+                    KeywordSearch.length>0 && index>=startend.start && index<startend.end && <Search_item setHideFilteredResult={setHideFilteredResult} setSingleSearchResult={setSingleSearchResult} item={sr} key={index}/>
                 ))}
             </div>
             
