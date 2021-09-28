@@ -108,8 +108,9 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
  
  
     const populateMarkers = async() => {
+        if(retrievingMarkers)return
         setRetrievingMarkers(true)
-        clearMarkers()
+        
         const s = new SVY21()
         const cpItems = await getCarparks(map.current.getBounds())
         let tempMarkers = []
@@ -122,6 +123,7 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
             .addTo(map.current);
             tempMarkers.push(marker)
         }
+        clearMarkers()
         setMarkers(tempMarkers)
         setRetrievingMarkers(false)
     }
