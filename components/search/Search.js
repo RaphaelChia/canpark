@@ -18,6 +18,8 @@ const Search = ({mapboxkey}) => {
     const [SingleSearchResult, setSingleSearchResult] = useState(null) // For when search is clicked
     const [mapMoving,setMapMoving] = useState(false)
     const [hideFilteredResult,setHideFilteredResult] = useState(false)
+    const [ToolTipStreetSpelling, setToolTipStreetSpelling] = useState(false)
+    const [ToolTipPositionOffeset,setToolTipPositionOffeset] = useState(0)
 
     const NEXT_PUBLIC_CARPARK_INFO_URL="https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c"
     const NEXT_PUBLIC_HDBCARPARK_AVAIL_URL="https://api.data.gov.sg/v1/transport/carpark-availability"
@@ -155,17 +157,27 @@ const Search = ({mapboxkey}) => {
         setSingleSearchResult(null)
     }
 
+    const showStreetSpellingToolTip = (e) => {
+        const targetString = 'st'
+        if(e.target.value.toLowerCase().includes(targetString)){
+            setToolTipPositionOffeset(e.target.value.toLowerCase().indexOf(targetString)+1)
+            setToolTipStreetSpelling(true)
+        } else {
+            setToolTipStreetSpelling(false)
+        }
+    }
 
     return (
         <div className={styles.container}>
             <Map mapMoving = {mapMoving} setMapMoving = {setMapMoving} resetSingleSearch = {resetSingleSearch} moveToSingleMarker={SingleSearchResult} getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
             <form className={styles.searchbar} onSubmit = {(e)=>{e.preventDefault()}}>
-                <input onFocus={()=>setHideFilteredResult(false)}  autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
+                <input onFocus={()=>setHideFilteredResult(false)} onChange={showStreetSpellingToolTip} autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
                 {!SearchResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
                 <div className={styles.settings_btn} onClick={toggleShowSettings}>
                     <FaCog/>
                 </div>
             </form>
+                {ToolTipStreetSpelling&&<span style={{left:`${ToolTipPositionOffeset}ch`,}} className={styles.toolTipBottom}>Try replacing street with 'st' if you can't get what you want.</span>}
             
             <div className={`${'noSelectClick '+styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
                 {!hideFilteredResult && FilteredResult.map((sr,index)=>(
