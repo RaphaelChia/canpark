@@ -74,7 +74,6 @@
 .searchThisAreaSpinner{
   margin:0px 0px 0px 8px;
   -webkit-animation: rotation 0.5s infinite linear;
-
 }
 
 .searchThisAreaText{
@@ -84,8 +83,8 @@
     box-shadow:2px 2px 2px #00000088;
     font-weight: bold;
     color:#234f81;
-    transition:width 0.5s ease-out;
-    width:160px;
+    transition:width 0.2s ease-out;
+    width:156px;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -306,3 +305,7 @@
     }
 }
 
+
+.dim {
+  opacity: 50%;
+}

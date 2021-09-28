@@ -11,11 +11,12 @@ import { debounce,isWithinMap,SVY21 } from "../../utils"
 // import { debounce } from "../../pages"
 
 const Search = ({mapboxkey}) => {
-    const [searchResult, SetSearchResult] = useState([])
-    const [FilteredResult, setFilteredResult] = useState(searchResult)
-    const [ShowSettings, setShowSettings] = useState(false)
+    const [searchResult, SetSearchResult] = useState([]) // The entire set of cp vacancies without cp info
+    const [FilteredResult, setFilteredResult] = useState(searchResult) // Search filter result
     const [KeywordSearch, setKeywordSearch] = useState("")
-    const [ResultLoaded, setResultLoaded] = useState(true)
+    const [SearchResultLoaded, setSearchResultLoaded] = useState(true)
+    const [SingleSearchResult, setSingleSearchResult] = useState(null) // For when search is clicked
+    const [mapMoving,setMapMoving] = useState(false)
 
     const NEXT_PUBLIC_CARPARK_INFO_URL="https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c"
     const NEXT_PUBLIC_HDBCARPARK_AVAIL_URL="https://api.data.gov.sg/v1/transport/carpark-availability"
@@ -24,6 +25,7 @@ const Search = ({mapboxkey}) => {
     
     // Settings 
     const tempRPP = 6
+    const [ShowSettings, setShowSettings] = useState(false)
     const [ResultPerPage, setResultPerPage] = useState(tempRPP)
     const [ShowLL, setShowLL] = useState(true)
     const [ShowFreeParking,setShowFreeParking] = useState(false)
@@ -52,12 +54,13 @@ const Search = ({mapboxkey}) => {
         updateFilteredResultsByKW()
     }, [KeywordSearch])
 
+
     
 
     const updateFilteredResultsByKW = async () =>{
-        setResultLoaded(false)
+        setSearchResultLoaded(false)
         if(KeywordSearch.length==0){
-            setResultLoaded(true)
+            setSearchResultLoaded(true)
             setFilteredResult([])
             return
         }
@@ -78,7 +81,7 @@ const Search = ({mapboxkey}) => {
         } catch (error) {
             console.error("Error Occurred",error)
         }
-        setResultLoaded(true)
+        setSearchResultLoaded(true)
         
     }
 
@@ -118,7 +121,6 @@ const Search = ({mapboxkey}) => {
     // }
 
     const getCarParkFilteredByCoord = async(mapCoords) =>{
-        console.log("attemping to get carparks")
         const cpd = await getCarParkDetails()
         const records = cpd.result.records
         const s = new SVY21()
@@ -145,23 +147,28 @@ const Search = ({mapboxkey}) => {
 
     const setKeyword_debounce = debounce(
         (e)=>setKeywordSearch(e.target.value.replace(/[^a-zA-Z\d ]/ig, "")),
-        300)
+        300
+    )
+
+    const resetSingleSearch = () => {
+        setSingleSearchResult(null)
+    }
 
 
     return (
         <div className={styles.container}>
-            <Map getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
+            <Map mapMoving = {mapMoving} setMapMoving = {setMapMoving} resetSingleSearch = {resetSingleSearch} moveToSingleMarker={SingleSearchResult} getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
             <form className={styles.searchbar} onSubmit = {(e)=>{e.preventDefault()}}>
                 <input autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
-                {!ResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
+                {!SearchResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
                 <div className={styles.settings_btn} onClick={toggleShowSettings}>
                     <FaCog/>
                 </div>
             </form>
             
-            <div className={`${styles.cardrows}`}>
+            <div className={`${styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
                 {FilteredResult.map((sr,index)=>(
-                    KeywordSearch.length>0 && index>=startend.start && index<startend.end && <Search_item item={sr} key={index}/>
+                    KeywordSearch.length>0 && index>=startend.start && index<startend.end && <Search_item setSingleSearchResult={setSingleSearchResult} item={sr} key={index}/>
                 ))}
             </div>
             
