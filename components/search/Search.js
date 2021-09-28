@@ -171,7 +171,7 @@ const Search = ({mapboxkey}) => {
         <div className={styles.container}>
             <Map mapMoving = {mapMoving} setMapMoving = {setMapMoving} resetSingleSearch = {resetSingleSearch} moveToSingleMarker={SingleSearchResult} getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
             <form className={styles.searchbar} onSubmit = {(e)=>{e.preventDefault()}}>
-                <input onFocus={()=>setHideFilteredResult(false)} onChange={showStreetSpellingToolTip} autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
+                <input onFocus={()=>setHideFilteredResult(false)} onBlur={()=>setToolTipStreetSpelling(false)} onChange={showStreetSpellingToolTip} autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
                 {!SearchResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
                 <div className={styles.settings_btn} onClick={toggleShowSettings}>
                     <FaCog/>
