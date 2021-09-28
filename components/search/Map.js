@@ -47,7 +47,6 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
     },[moveToSingleMarker])
 
      useEffect(() => {
-         console.log("init map")
         //  if (map.current) return; // initialize map only once
          map.current = new mapboxgl.Map({
            container: mapContainer.current,

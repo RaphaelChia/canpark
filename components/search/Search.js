@@ -10,7 +10,7 @@ import {FaCog, FaSpinner} from 'react-icons/fa'
 import { debounce,isWithinMap,SVY21 } from "../../utils"
 // import { debounce } from "../../pages"
 
-const Search = ({mapboxkey}) => {
+const Search = () => {
     const [searchResult, SetSearchResult] = useState([]) // The entire set of cp vacancies without cp info
     const [FilteredResult, setFilteredResult] = useState(searchResult) // Search filter result
     const [KeywordSearch, setKeywordSearch] = useState("")
@@ -60,7 +60,7 @@ const Search = ({mapboxkey}) => {
 
     
 
-    const updateFilteredResultsByKW = async () =>{
+    const updateFilteredResultsByKW = async () =>{ 
         setSearchResultLoaded(false)
         if(KeywordSearch.length==0){
             setSearchResultLoaded(true)
@@ -70,7 +70,6 @@ const Search = ({mapboxkey}) => {
         try {
             // Basically trying to merge 2 different API results into 1 object
             const data = await getCarParkDetails(KeywordSearch)
-            // console.log(data.result.records)
             const finalList = []
             for(var x in data.result.records){
                 const fil2 = searchResult.filter((item)=>(
@@ -137,7 +136,6 @@ const Search = ({mapboxkey}) => {
                 Object.assign(recordsWithinViewport[x],fil2[0])
             }
         }
-        // console.log(recordsWithinViewport)
         return recordsWithinViewport
     }
 
@@ -145,7 +143,6 @@ const Search = ({mapboxkey}) => {
 
     const toggleShowSettings = () =>{
         setShowSettings(!ShowSettings)
-        // getLocation()
     }
 
     const setKeyword_debounce = debounce(
@@ -158,7 +155,7 @@ const Search = ({mapboxkey}) => {
     }
 
     const showStreetSpellingToolTip = (e) => {
-        const targetString = 'st'
+        const targetString = 'st '
         if(e.target.value.toLowerCase().includes(targetString)){
             setToolTipPositionOffeset(e.target.value.toLowerCase().indexOf(targetString)+1)
             setToolTipStreetSpelling(true)
@@ -177,7 +174,7 @@ const Search = ({mapboxkey}) => {
                     <FaCog/>
                 </div>
             </form>
-                {ToolTipStreetSpelling&&<span style={{left:`${ToolTipPositionOffeset}ch`,}} className={styles.toolTipBottom}>Try replacing street with 'st' if you can't get what you want.</span>}
+                {ToolTipStreetSpelling&&<span style={{left:`${ToolTipPositionOffeset}ch`,}} className={styles.toolTipBottom}>Try replacing st with 'street' if you can't get what you want.</span>}
             
             <div className={`${'noSelectClick '+styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
                 {!hideFilteredResult && FilteredResult.map((sr,index)=>(
