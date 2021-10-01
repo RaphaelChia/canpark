@@ -155,7 +155,7 @@ const Search = () => {
     }
 
     const showStreetSpellingToolTip = (e) => {
-        const targetString = 'st '
+        const targetString = KeywordSearch==""?'st ':" st "
         if(e.target.value.toLowerCase().includes(targetString)){
             setToolTipPositionOffeset(e.target.value.toLowerCase().indexOf(targetString)+1)
             setToolTipStreetSpelling(true)
@@ -168,14 +168,19 @@ const Search = () => {
         <div className={styles.container}>
             <Map mapMoving = {mapMoving} setMapMoving = {setMapMoving} resetSingleSearch = {resetSingleSearch} moveToSingleMarker={SingleSearchResult} getCarparks = {getCarParkFilteredByCoord} showLL = {ShowLL}/>
             <form className={styles.searchbar} onSubmit = {(e)=>{e.preventDefault()}}>
-                <input onFocus={()=>setHideFilteredResult(false)} onBlur={()=>setToolTipStreetSpelling(false)} onChange={showStreetSpellingToolTip} autoComplete="off" type="text" placeholder="Search" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
+                <input onFocus={()=>setHideFilteredResult(false)} onBlur={()=>setToolTipStreetSpelling(false)} onChange={showStreetSpellingToolTip} autoComplete="off" type="text" placeholder="Street 72 / Blk 689" name ="search_keyword" onKeyUp={setKeyword_debounce} />  
                 {!SearchResultLoaded && <FaSpinner className ={styles.searchSpinner}></FaSpinner>}
                 <div className={styles.settings_btn} onClick={toggleShowSettings}>
                     <FaCog/>
                 </div>
             </form>
-                {ToolTipStreetSpelling&&<span style={{left:`${ToolTipPositionOffeset}ch`,}} className={styles.toolTipBottom}>Try replacing st with 'street' if you can't get what you want.</span>}
-            
+            {ToolTipStreetSpelling&&<span style={{left:`${ToolTipPositionOffeset}ch`,}} className={styles.toolTipBottom}>Try replacing st with 'street' if you can't get what you want.</span>}
+            {KeywordSearch=="" && <div className={styles.initialToolTip}>
+                <span>Search for a carpark name! </span>
+                <span>e.g. 650 Damai</span>
+                <span>e.g. St 61</span>
+            </div>}
+
             <div className={`${'noSelectClick '+styles.cardrows + ' ' + (mapMoving?styles.dim:'')}`}>
                 {!hideFilteredResult && FilteredResult.map((sr,index)=>(
                     KeywordSearch.length>0 && index>=startend.start && index<startend.end && <Search_item setHideFilteredResult={setHideFilteredResult} setSingleSearchResult={setSingleSearchResult} item={sr} key={index}/>
