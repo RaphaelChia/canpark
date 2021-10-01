@@ -15,8 +15,8 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
      const map = useRef(null);
      const [lng, setLng] = useState(punggol.lng);
      const [lat, setLat] = useState(punggol.lat);
-     const [zoom, setZoom] = useState(13);
-     const [markers,setMarkers] = useState([])
+     const [zoom, setZoom] = useState(13); // Bigger number zoom in more
+     const [markers,setMarkers] = useState([]) // Store all current markers on the map
      const [retrievingMarkers,setRetrievingMarkers] = useState(false)
      const bound = [
          [103.6156,1.2198],
@@ -107,7 +107,7 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
  
  
     const populateMarkers = async() => {
-        if(retrievingMarkers)return
+        if(retrievingMarkers || mapMoving)return
         setRetrievingMarkers(true)
         
         const s = new SVY21()
@@ -159,8 +159,8 @@ const Map = ({mapMoving,setMapMoving, showLL, getCarparks, moveToSingleMarker, r
                 {showLL && <div className={styles.mapLL}>
                     {lat} {lng}
                 </div>}
-                {!mapMoving && <div onClick={debounce(populateMarkers,300)} className = {styles.flexRowCenter+' '+styles.btnsearchhere}>
-                    <div className = {`${styles.searchThisAreaText} noSelectClick ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
+                {<div onClick={debounce(populateMarkers,300)} className = {styles.flexRowCenter+' '+styles.btnsearchhere}>
+                    <div className = {`${mapMoving?styles.dim:''} ${styles.searchThisAreaText} noSelectClick ${retrievingMarkers?styles.searchThisAreaTextGrow:''}`}>
                         Search This Area
                         {retrievingMarkers &&
                             <FaSpinner className = {`${styles.searchThisAreaSpinner}`}/>
