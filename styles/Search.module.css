@@ -30,7 +30,7 @@
     justify-content: space-between;
     align-items: center;
     z-index: 2;
-    position: relative;
+    position: fixed;
     top: 0px;
     /* width: 100vw; */
 
@@ -112,7 +112,7 @@
 
 .initialToolTip{
   z-index: 2;
-  position: absolute;
+  position: fixed;
   margin: 12px 22px;
   top:34px;
   background-color: #234f81;
